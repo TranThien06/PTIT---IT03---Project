@@ -2,6 +2,8 @@ function showPage(page) {
     document.getElementById('home-page').style.display = 'none';
     document.getElementById('category-page').style.display = 'none';
     document.getElementById('vocabulary-page').style.display = 'none';
+    document.getElementById('flashcards-page').style.display = 'none';
+    document.getElementById('quiz-page').style.display = 'none';
 
     document.querySelector(".btn-login").style.display = 'none';
     document.querySelector(".btn-register").style.display = 'none';
@@ -15,6 +17,12 @@ function showPage(page) {
         renderVocabularies();
     } else if (page === 'dashboard') {
         document.getElementById('home-page').style.display = 'block';
+    } else if (page === 'flashcards') {
+        document.getElementById('flashcards-page').style.display = 'block';
+        loadFlashcards();
+    } else if (page === 'quiz') {
+        document.getElementById('quiz-page').style.display = 'block';
+        startQuiz();
     } else {
         Swal.fire({
             title: 'Chưa triển khai',
@@ -27,38 +35,38 @@ function showPage(page) {
 }
 
 function showForm(type) {
-   
     const loginForm = document.getElementById("login-form");
     const registerForm = document.getElementById("register-form");
     const homePage = document.getElementById("home-page");
     const categoryPage = document.getElementById("category-page");
     const vocabularyPage = document.getElementById("vocabulary-page");
+    const flashcardsPage = document.getElementById("flashcards-page");
+    const quizPage = document.getElementById("quiz-page");
 
     if (loginForm) loginForm.style.display = type === 'login' ? 'block' : 'none';
     if (registerForm) registerForm.style.display = type === 'register' ? 'block' : 'none';
     if (homePage) homePage.style.display = type === 'home' ? 'block' : 'none';
-    if (categoryPage) categoryPage.style.display = 'none';
-    if (vocabularyPage) vocabularyPage.style.display = 'none';
+    if (categoryPage) categoryPage.style.display = type === 'category' ? 'block' : 'none';
+    if (vocabularyPage) vocabularyPage.style.display = type === 'vocabulary' ? 'block' : 'none';
+    if (flashcardsPage) flashcardsPage.style.display = type === 'flashcards' ? 'block' : 'none';
+    if (quizPage) quizPage.style.display = type === 'quiz' ? 'block' : 'none';
 
     document.querySelector(".btn-login").style.display = type === 'login' || type === 'register' ? 'inline-block' : 'none';
     document.querySelector(".btn-register").style.display = type === 'login' || type === 'register' ? 'inline-block' : 'none';
-    document.querySelector(".btn-logout").style.display = type === 'home' || type === 'category' || type === 'vocabulary' ? 'inline-block' : 'none';
+    document.querySelector(".btn-logout").style.display = type === 'home' || type === 'category' || type === 'vocabulary' || type === 'flashcards' || type === 'quiz' ? 'inline-block' : 'none';
 }
-
 
 window.onload = function () {
     const loggedInUser = localStorage.getItem("loggedInUser");
     const currentPath = window.location.pathname;
 
     if (loggedInUser) {
-   
         if (currentPath.includes('index.html') || currentPath.includes('register.html')) {
             window.location.href = 'home.html';
         } else if (currentPath.includes('home.html')) {
-            showPage('dashboard'); 
+            showPage('dashboard');
         }
     } else {
-      
         if (currentPath.includes('home.html')) {
             window.location.href = 'index.html';
         } else if (currentPath.includes('register.html')) {
@@ -68,7 +76,6 @@ window.onload = function () {
         }
     }
 
-    
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();

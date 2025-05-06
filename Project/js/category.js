@@ -63,15 +63,15 @@ function saveCategory() {
 
     if (name && description) {
         if (window.currentEditIndex !== undefined) {
-            // Cập nhật danh mục hiện tại
+            
             categories[window.currentEditIndex] = { name, description };
-            window.currentEditIndex = undefined; // reset trạng thái
+            window.currentEditIndex = undefined;
         } else {
-            // Thêm danh mục mới
+     
             categories.push({ name, description });
         }
 
-        // Lưu vào localStorage
+       
         localStorage.setItem('categories', JSON.stringify(categories));
 
         closeCategoryPopup();
@@ -101,7 +101,7 @@ function saveCategory() {
 
 function confirmCategoryDelete() {
     categories.splice(window.currentDeleteIndex, 1);
-    localStorage.setItem('categories', JSON.stringify(categories)); // Cập nhật localStorage
+    localStorage.setItem('categories', JSON.stringify(categories)); 
     closeCategoryDeletePopup();
     renderCategories();
     saveCategoriesToLocalStorage();

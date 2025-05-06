@@ -53,7 +53,7 @@ function openAddVocabularyPopup() {
     document.getElementById('vocabWord').value = '';
     document.getElementById('vocabMeaning').value = '';
     document.getElementById('vocabCategory').value = '';
-    populateCategoryOptions(); // <-- Thêm dòng này
+    populateCategoryOptions(); 
     document.getElementById('vocabularyPopup').style.display = 'flex';
 }
 
@@ -68,16 +68,16 @@ function openAddVocabularyPopup() {
 
         if (word && meaning && category) {
             if (window.currentEditVocabIndex !== undefined) {
-                // Cập nhật từ vựng đang được chỉnh sửa
+                
                 vocabularies[window.currentEditVocabIndex] = { word, meaning, category };
-                window.currentEditVocabIndex = undefined; // reset trạng thái
+                window.currentEditVocabIndex = undefined; 
             } else {
-                // Thêm từ vựng mới
+              
                 vocabularies.push({ word, meaning, category });
             }
 
-            // Cập nhật lại dữ liệu và hiển thị lại
-            localStorage.setItem('vocabularies', JSON.stringify(vocabularies)); // nếu cần lưu vào localStorage
+       
+            localStorage.setItem('vocabularies', JSON.stringify(vocabularies)); 
             closeVocabularyPopup();
             renderVocabularies();
         }
@@ -90,7 +90,7 @@ function openAddVocabularyPopup() {
         document.getElementById('vocabCategory').value = vocabularies[index].category;
         document.getElementById('vocabularyPopup').style.display = 'flex';
 
-        window.currentEditVocabIndex = index; // Cập nhật index của từ vựng cần chỉnh sửa
+        window.currentEditVocabIndex = index;
     }
 
 
@@ -105,7 +105,7 @@ function openAddVocabularyPopup() {
 
     function confirmVocabularyDelete() {
     vocabularies.splice(window.currentDeleteIndex, 1);
-    localStorage.setItem('vocabularies', JSON.stringify(vocabularies)); // Cập nhật localStorage
+    localStorage.setItem('vocabularies', JSON.stringify(vocabularies));
     closeVocabularyDeletePopup();
     renderVocabularies();
 }
@@ -135,6 +135,6 @@ function populateCategoryOptions() {
 
 
 
-    // Gọi hàm này khi trang được tải
+    
     loadVocabulariesFromLocalStorage();
     renderVocabularies();
